@@ -81,29 +81,18 @@ def print_pattern(many_lists):
             print(character, end = "")
         print("", sep = "\n")
 
-def xl_pattern(fancy_values):
-    """create super size pattern"""
-    print(fancy_values[:20])
-    print(fancy_values[:20])
-    print(fancy_values[20:40])
-    print(fancy_values[20:40])
-    print(fancy_values[40:60])
-    print(fancy_values[40:60])
-    print(fancy_values[60:80])
-    print(fancy_values[60:80])
-    print(fancy_values[80:100])
-    print(fancy_values[80:100])
-    print(fancy_values[100:120])
-    print(fancy_values[100:120])
-    print(fancy_values[120:140])
-    print(fancy_values[120:140])
-    print(fancy_values[140:160])
-    print(fancy_values[140:160])
-    print(fancy_values[160:180])
-    print(fancy_values[160:180])
-    print(fancy_values[180:200])
-    print(fancy_values[180:200])
-
+def supersize(fancy_values):
+    """print out a 2x2 for each value pattern for the icon"""
+    a = 0
+    b = 20
+    while b < 200:
+        print(fancy_values[a:b])
+        print(fancy_values[a:b])
+        a = a + 20
+        b = b + 20
+        if b > 200:
+            break
+            
 def pause():
     """insert a pause/break in the program"""
     program_pause = input("press the <ENTER> key")
@@ -135,7 +124,7 @@ def main():
     print() #aesthetic line
     xx = icon+icon
     assigned_values = dbl_characters(user_choice, xx)
-    xl_pattern(assigned_values)
+    supersize(assigned_values)
     print() #aesthetic line
     print("And fancier still...wallpaper"), pause()
     print() #aesthetic line
