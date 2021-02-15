@@ -7,6 +7,8 @@ Icon Creation Program
 """
 
 import itertools
+import os
+import csv
 
 
 def make_list():
@@ -14,36 +16,58 @@ def make_list():
     user_numbers = []
     return user_numbers
 
-def user_input():
-    """get user's list of numbers with a flag for not enough/too many values"""
-    user_numbers = input("Please give me one hundred 1s or 0s with no spaces, commas, or other characters: ")
-    while len(user_numbers) != 100:
-        if len(user_numbers) < 100:
-            print("You haven't given me enough numbers.")
-            values_needed = 100 - len(user_numbers)
-            more_numbers = input("Please give me " + str(values_needed) + " more numbers: ")
-            user_numbers = user_numbers + more_numbers
-        elif len(user_numbers) > 100:
-            print() #aesthetic line
-            print("You've given me more than 100 values, so I'll just use the first 100.")
-            return user_numbers
-    else:
+def get_file(value_list):
+    """get user's file of numbers or send to in-program input"""
+    file_name = input("If you have a file with the list of numbers, please type in the name (including file type). \nIf there is no file, type 'none'. ")
+    exists = os.path.isfile(file_name)
+    str_values = ""
+    if exists == True: # pull from file, if file is present
+        with open(file_name, "r") as values:
+            for numbers in csv.reader(values):
+                value_list.append(numbers[0])
+                for values in value_list: # convert to string
+                    str_values += values
+                return str_values
+    elif exists == False or file_name == "none": # break loop if no file or exit
         print() #aesthetic line
-        print("Just the right amount!")
-        return user_numbers
+        print("We'll get the files in the program them.")
+        return str_values
 
-def assign_characters(user_list, x):
+def user_input(values):
+    """get user's list of numbers with a flag for not enough/too many values"""
+    if len(values) == 0:
+        user_numbers = input("Please give me one hundred 1s or 0s with no spaces, commas, or other characters: ")
+        while len(user_numbers) != 100:
+            if len(user_numbers) < 100:
+                print("You haven't given me enough values.")
+                more_needed = 100 - len(user_numbers)
+                more_numbers = input("Please give me " + str(more_needed) + " more numbers: ")
+                user_numbers = user_numbers + more_numbers
+            elif len(user_numbers) > 100:
+                print() #aesthetic line
+                print("You've given me more than 100 values, so I'll just use the first 100.")
+                return user_numbers
+        else:
+            print() #aesthetic line
+            print("Just the right amount!")
+            return user_numbers
+    elif len(values) != 0:
+        print() #aesthetic line
+        print("Looks like the file has all we need!")
+        return values
+
+def assign_characters(user_list, fill, empty):
     """assign a value to represent the 1 
     https://www.w3schools.com/python/ref_string_translate.asp
     https://www.w3schools.com/python/ref_string_maketrans.asp"""
-    swap_dict = {"1": x, "0": " "}
+    swap_dict = {"1": fill, "0": empty}
     swap_values = user_list.maketrans(swap_dict)
     new_list = user_list.translate(swap_values)
     return new_list
 
-def dbl_characters(user_list, xx):
+def dbl_characters(user_list, fillfill, emptyempty):
     """assign 2x the characters per value assigned to 1"""
-    swap_dict = {"1": xx, "0": "  "}
+    swap_dict = {"1": fillfill, "0": emptyempty}
     swap_values = user_list.maketrans(swap_dict)
     new_list = user_list.translate(swap_values)
     return new_list
@@ -80,7 +104,7 @@ def print_pattern(many_lists):
         for character in a_list:
             print(character, end = "")
         print("", sep = "\n")
-
+    
 def supersize(fancy_values):
     """print out a 2x2 for each value pattern for the icon"""
     a = 0
@@ -92,7 +116,7 @@ def supersize(fancy_values):
         b = b + 20
         if b > 200:
             break
-            
+
 def pause():
     """insert a pause/break in the program"""
     program_pause = input("press the <ENTER> key")
@@ -100,30 +124,33 @@ def pause():
 
 def main():
     """pull it all together with the appropriate verbage"""
-    make_list()
+    new_list = make_list()
     print() #aesthetic line
     print("Welcome to the icon creation extravaganza!")
     print() #aesthetic line
     print("If you can give me 100 1s or 0s, I can create a pattern on the screen using the values.")
     print("The 0s will be blank and the 1s will be 'filled'.")
-    user_choice = user_input()
+    file_values = get_file(new_list)
+    user_choice = user_input(file_values)
     print() #aesthetic line
     print("These are the values I'm going to use for the patern: ")
     print(user_choice[:100])
     print() #aesthetic line
-    icon = input("What character would you like to use for 1? ")
+    icon1 = input("What character would you like to use for 1 (shaded)? ")
+    icon0 = input("What character would you like to use for 0 (not shaded)? ")
+    assigned_values = assign_characters(user_choice, icon1, icon0)
     print() #aesthetic line
     print() #aesthetic line
     print("Now to see the magic..."), pause()
     print() #aesthetic line
-    assigned_values = assign_characters(user_choice, icon)
     all_the_lists = list_of_lists(assigned_values)
     print_pattern(all_the_lists)
     print() #aesthetic line
     print("And a little fancier...supersized"), pause()
     print() #aesthetic line
-    xx = icon+icon
-    assigned_values = dbl_characters(user_choice, xx)
+    double_1 = icon1 + icon1
+    double_0 = icon0 + icon0
+    assigned_values = dbl_characters(user_choice, double_1, double_0)
     supersize(assigned_values)
     print() #aesthetic line
     print("And fancier still...wallpaper"), pause()
