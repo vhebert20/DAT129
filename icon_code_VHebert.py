@@ -34,7 +34,8 @@ def get_file(value_list):
         return str_values
 
 def user_input(values):
-    """get user's list of numbers with a flag for not enough/too many values"""
+    """get user's list of numbers with a flag for not enough/too many values
+    https://www.geeksforgeeks.org/python-exit-commands-quit-exit-sys-exit-and-os-_exit/"""
     if len(values) == 0:
         user_numbers = input("Please give me one hundred 1s or 0s with no spaces, commas, or other characters: ")
         while len(user_numbers) != 100:
@@ -51,10 +52,14 @@ def user_input(values):
             print() #aesthetic line
             print("Just the right amount!")
             return user_numbers
-    elif len(values) != 0:
+    elif len(values) == 100:
         print() #aesthetic line
         print("Looks like the file has all we need!")
         return values
+    elif len(values) < 100 and len(values) > 0:
+        print() #aesthetic line
+        print("The file doesn't have enough values in it. Please check and make sure there are 100 1s and/or 0s.")
+        return sys.exit()
 
 def assign_characters(user_list, fill, empty):
     """assign a value to represent the 1 
