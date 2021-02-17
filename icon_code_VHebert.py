@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Feb  3 20:39:51 2021
 Virginia Hebert
 DAT129 - Python 2
 Icon Creation Program
@@ -9,6 +7,7 @@ Icon Creation Program
 import itertools
 import os
 import csv
+import sys
 
 
 def make_list():
@@ -23,11 +22,14 @@ def get_file(value_list):
     str_values = ""
     if exists == True: # pull from file, if file is present
         with open(file_name, "r") as values:
-            for numbers in csv.reader(values):
-                value_list.append(numbers[0])
-                for values in value_list: # convert to string
-                    str_values += values
-                return str_values
+            file_values = values.readlines()
+            clean_list = []
+            for line_end in file_values:
+                clean_list.append(line_end.strip()) # strip newline character
+            clean_list[:] = [''.join(clean_list[:])] # make one big list
+            for values in clean_list: # convert to string
+                str_values += values
+            return str_values
     elif exists == False or file_name == "none": # break loop if no file or exit
         print() #aesthetic line
         print("We'll get the files in the program them.")
@@ -41,9 +43,9 @@ def user_input(values):
         while len(user_numbers) != 100:
             if len(user_numbers) < 100:
                 print("You haven't given me enough values.")
-                more_needed = 100 - len(user_numbers)
+                more_needed = 100 - len(user_numbers) # determine how many more numbers are needed
                 more_numbers = input("Please give me " + str(more_needed) + " more numbers: ")
-                user_numbers = user_numbers + more_numbers
+                user_numbers = user_numbers + more_numbers # determine if there are enough
             elif len(user_numbers) > 100:
                 print() #aesthetic line
                 print("You've given me more than 100 values, so I'll just use the first 100.")
@@ -59,7 +61,7 @@ def user_input(values):
     elif len(values) < 100 and len(values) > 0:
         print() #aesthetic line
         print("The file doesn't have enough values in it. Please check and make sure there are 100 1s and/or 0s.")
-        return sys.exit()
+        return sys.exit() # exit the program to fix the input file of numbers
 
 def assign_characters(user_list, fill, empty):
     """assign a value to represent the 1 
@@ -138,7 +140,7 @@ def main():
     file_values = get_file(new_list)
     user_choice = user_input(file_values)
     print() #aesthetic line
-    print("These are the values I'm going to use for the patern: ")
+    print("These are the values I'm going to use for the pattern: ")
     print(user_choice[:100])
     print() #aesthetic line
     icon1 = input("What character would you like to use for 1 (shaded)? ")
