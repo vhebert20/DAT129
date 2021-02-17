@@ -6,7 +6,6 @@ Icon Creation Program
 
 import itertools
 import os
-import csv
 import sys
 
 
@@ -36,8 +35,7 @@ def get_file(value_list):
         return str_values
 
 def user_input(values):
-    """get user's list of numbers with a flag for not enough/too many values
-    https://www.geeksforgeeks.org/python-exit-commands-quit-exit-sys-exit-and-os-_exit/"""
+    """get user's list of numbers with a flag for not enough/too many values"""
     if len(values) == 0:
         user_numbers = input("Please give me one hundred 1s or 0s with no spaces, commas, or other characters: ")
         while len(user_numbers) != 100:
@@ -64,9 +62,7 @@ def user_input(values):
         return sys.exit() # exit the program to fix the input file of numbers
 
 def assign_characters(user_list, fill, empty):
-    """assign a value to represent the 1 
-    https://www.w3schools.com/python/ref_string_translate.asp
-    https://www.w3schools.com/python/ref_string_maketrans.asp"""
+    """assign a value to represent the 1 """
     swap_dict = {"1": fill, "0": empty}
     swap_values = user_list.maketrans(swap_dict)
     new_list = user_list.translate(swap_values)
@@ -80,14 +76,12 @@ def dbl_characters(user_list, fillfill, emptyempty):
     return new_list
 
 def list_of_lists(new_values):
-    """break the full list down into a series of 10 value long lists
-    https://www.geeksforgeeks.org/break-list-chunks-size-n-python/"""
+    """break the full list down into a series of 10 value long lists"""
     listy_list = [new_values[i:i + 10] for i in range(0, len(new_values), 10)]
     return listy_list
 
 def copy_list(user_list):
-    """make a copy of the user list for wallpaper
-    https://www.geeksforgeeks.org/python-how-to-copy-a-nested-list/"""
+    """make a copy of the user list for wallpaper"""
     copied_list = []
     for x in range(len(user_list)):
         temp = []
@@ -97,16 +91,14 @@ def copy_list(user_list):
     return copied_list
 
 def wallpaper_lists(original_list, copied_list):
-    """create a zipped list of lists to print a wallpaper sytle design
-    https://www.geeksforgeeks.org/python-zipping-two-lists-of-lists/"""
+    """create a zipped list of lists to print a wallpaper sytle design"""
     zip_list = [list(itertools.chain(*i))
-       for i in zip(original_list, copied_list, original_list, copied_list, original_list)] 
-    added_list = zip_list + zip_list + zip_list
+       for i in zip(original_list, copied_list, original_list, copied_list, original_list, copied_list)]
+    added_list = (3 * zip_list)
     return added_list
 
 def print_pattern(many_lists):
-    """print the list of lists into a pattern
-    https://stackoverflow.com/questions/38872341/print-list-of-lists-in-separate-lines"""
+    """print the list of lists into a pattern"""
     for a_list in many_lists:
         for character in a_list:
             print(character, end = "")
