@@ -62,17 +62,17 @@ def user_input(values):
         return sys.exit() # exit the program to fix the input file of numbers
 
 def assign_characters(user_list, fill, empty):
-    """assign a value to represent the 1 """
-    swap_dict = {"1": fill, "0": empty}
-    swap_values = user_list.maketrans(swap_dict)
-    new_list = user_list.translate(swap_values)
+    """assign a value to represent the 1 and 0"""
+    swap_dict = {"1": fill, "0": empty} # make dictionary of values to swap
+    swap_values = user_list.maketrans(swap_dict) # map swaps
+    new_list = user_list.translate(swap_values) # make swaps
     return new_list
 
 def dbl_characters(user_list, fillfill, emptyempty):
-    """assign 2x the characters per value assigned to 1"""
-    swap_dict = {"1": fillfill, "0": emptyempty}
-    swap_values = user_list.maketrans(swap_dict)
-    new_list = user_list.translate(swap_values)
+    """assign 2x the characters per value assigned to 1 and 0"""
+    swap_dict = {"1": fillfill, "0": emptyempty} # make dictionary of values to swap
+    swap_values = user_list.maketrans(swap_dict) # map swaps
+    new_list = user_list.translate(swap_values) # make swaps
     return new_list
 
 def list_of_lists(new_values):
@@ -93,8 +93,8 @@ def copy_list(user_list):
 def wallpaper_lists(original_list, copied_list):
     """create a zipped list of lists to print a wallpaper sytle design"""
     zip_list = [list(itertools.chain(*i))
-       for i in zip(original_list, copied_list, original_list, copied_list, original_list, copied_list)]
-    added_list = (3 * zip_list)
+       for i in zip(original_list, copied_list, original_list, copied_list, original_list, copied_list)] # width
+    added_list = (3 * zip_list) # heighth
     return added_list
 
 def print_pattern(many_lists):
@@ -106,15 +106,15 @@ def print_pattern(many_lists):
     
 def supersize(fancy_values):
     """print out a 2x2 for each value pattern for the icon"""
-    a = 0
+    a = 0 # initialize
     b = 20
     while b < 200:
         print(fancy_values[a:b])
         print(fancy_values[a:b])
-        a = a + 20
+        a = a + 20 # increment through the list
         b = b + 20
         if b > 200:
-            break
+            break # exit loop at end of list
 
 def pause():
     """insert a pause/break in the program"""
