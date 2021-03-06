@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 4 2021
+Created on Wed Mar 5 2021
 Virginia Hebert
 DAT129 - Python 2
 """
 
-import requests, json
+import requests, json, csv
 
 
 def build_URL(search):
     # connect to NHTSA API by building URL-encoded GET request
-    # API Endpoint:"front door our API server"
+    # API Endpoint: "front door our API server"
+    # currently set up to return only 10 search results
     API_ENDPOINT = 'http://api.geonames.org/wikipediaSearchJSON?q=%s&maxRows=10&username=vhebert20' % (search)
-    # https://www.geonames.org/export/ws-overview.html
-    # create the full URL
     full_url = API_ENDPOINT
     print('URL: ', full_url)
     return full_url
@@ -30,15 +29,22 @@ def make_api_request(url):
     else:
         return None
 
-def parse_wiki_data(results):
-    # iterate over list
+def print_to_file(results):
+    # print results to list
     information = results['geonames']
-    for index in range(len(information)):
-        print(information[index])
-        print()
-        
+    # establish field names
+    fieldnames = ['title', 'feature', 'summary', 'elevation', 'lat', 'lng', 'countryCode', 'wikipediaUrl', 'rank', 'geoNameId', 'thumbnailImg', 'lang']
+    with open('wiki_search.csv', 'w') as search_output: 
+        # link field names and assign line end terminator to remove blank line in csv
+        written_file = csv.DictWriter(search_output, fieldnames = fieldnames, lineterminator = '\n')
+        # write field names
+        written_file.writeheader()
+        # pull in information based on field names
+        written_file.writerows(information)
+    return
+
 def fancy_print(results):
-        # iterate over list
+    # iterate over list and print out values of interest
     information = results['geonames']
     for index in range(len(information)):
         if 'elevation' in information[index]:
@@ -47,12 +53,15 @@ def fancy_print(results):
             print('elevation: ', information[index]['elevation'])
             print('lat: ', information[index]['lat'])
             print('long: ', information[index]['lng'])
+            print()
         else:
             print('title: ', information[index]['title'])
             print(information[index]['summary'])
             print('lat: ', information[index]['lat'])
             print('long: ', information[index]['lng'])
-        print()
+            print()
+    return
+
 
 def main():
     thing = input("Please give me a topic of interest: ")
@@ -60,10 +69,9 @@ def main():
     url = build_URL(thing)
     print()
     returned_info = make_api_request(url)
-#    print(returned_info)
     print()
-#    parse_wiki_data(returned_info)
     fancy_print(returned_info)
+    print_to_file(returned_info)
 
 
 main()
