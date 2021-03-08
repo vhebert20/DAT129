@@ -17,7 +17,7 @@
 
 
 
-#### **assignment 3** - API usage with JSON processing: create a program to send a request using an API of choice and process and parse the incoming JSON formatted results
+#### **assignment 3** - API usage with JSON processing: create a program to send a request using an API of choice and process and parse the incoming JSON formatted results; used the Geonames wiki search API found at https://www.geonames.org/export/wikipedia-webservice.html#wikipediaSearch
 
 ##### included is a snapshot of the program output (not including the resulting csv created)
 
