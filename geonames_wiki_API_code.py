@@ -29,12 +29,12 @@ def make_api_request(url):
     else:
         return None
 
-def print_to_file(results):
+def print_to_file(results, file_name):
     # print results to list
     information = results['geonames']
     # establish field names
     fieldnames = ['title', 'feature', 'summary', 'elevation', 'lat', 'lng', 'countryCode', 'wikipediaUrl', 'rank', 'geoNameId', 'thumbnailImg', 'lang']
-    with open('wiki_search.csv', 'w') as search_output: 
+    with open(file_name, 'w') as search_output: 
         # link field names and assign line end terminator to remove blank line in csv
         written_file = csv.DictWriter(search_output, fieldnames = fieldnames, lineterminator = '\n')
         # write field names
@@ -71,7 +71,8 @@ def main():
     returned_info = make_api_request(url)
     print()
     fancy_print(returned_info)
-    print_to_file(returned_info)
+    name_of_file = input("What would you like to name the save file, include .csv? ")
+    print_to_file(returned_info, name_of_file)
 
 
 main()
