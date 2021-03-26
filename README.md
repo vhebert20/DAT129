@@ -17,8 +17,13 @@ _______
 
 _______
 
-#### **assignment 3** - API usage with JSON processing: create a program to send a request using an API of choice and process and parse the incoming JSON formatted results
+#### **assignment 3** - API usage with JSON processing: create a program to send a request using an API of choice and process and parse the incoming JSON formatted results; also included the ability to post the data point using the Cartopy package and export the map into a csv; finally, incorporated an exception output for when the query request does not return any results
 
 ##### included is a snapshot of the program output (not including the resulting csv created)
 
 ![API_results](https://user-images.githubusercontent.com/71047291/110192701-b2821700-7dfd-11eb-84b0-fe2933bad44a.jpg)
+
+
+##### and a snapshot of the map that is created using cartopy
+
+![geoname_map](https://user-images.githubusercontent.com/71047291/112682199-27b59a80-8e46-11eb-9622-b59ff4d125f3.jpg)
