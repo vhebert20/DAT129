@@ -27,3 +27,18 @@ _______
 ##### and a snapshot of the map that is created using cartopy
 
 ![geoname_map](https://user-images.githubusercontent.com/71047291/112682199-27b59a80-8e46-11eb-9622-b59ff4d125f3.jpg)
+
+________
+
+##### **assignment 4** - web scraping: create a program to scrape a website of my choosing and return the information in a viewable format; also set it up to write the scraped information to a csv for later clean-up  
+
+##### included is a snapshot of the data returned from the scrape in the Notebook  
+
+![image](https://user-images.githubusercontent.com/71047291/118058259-c9903880-b35b-11eb-9e55-c76f9031c6ce.png)  
+
+
+##### and a snapshot of the html that was scraped (http://webmineral.com/data/Quartz.shtml#.YJxquLVKg2y)
+
+![image](https://user-images.githubusercontent.com/71047291/118058344-03613f00-b35c-11eb-8ca6-9ea86a843a78.png)  
+
+
